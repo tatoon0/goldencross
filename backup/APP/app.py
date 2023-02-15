@@ -5,7 +5,7 @@ import pandas as pd
 from pandas_datareader import data
 from datetime import datetime, timedelta
 
-n = 1 # 페이지당 50종목
+n = 6 # 페이지당 50종목
 
 code = [] # 종목코드
 name = [] # 종목이름
@@ -65,5 +65,21 @@ profile = {
     '링크' : link
 }
 
+holdingStockCode = [
+    '008730',
+    '403550',
+    '051915',
+    '032350',
+    '008930',
+    '267260'
+    ]
+
+def holding(code):
+    if code in holdingStockCode:
+        return 'O'
+    else:
+        return 'X'
+
 df = pd.DataFrame(profile)
+df['보유여부'] = df['종목코드'].apply(holding)
 df.to_excel(f'{datetime.now().strftime("%Y-%m-%d")}.xlsx', index=False)
